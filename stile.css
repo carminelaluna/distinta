@@ -17,11 +17,24 @@
    la finestra prima di vedere il prezzo.
 
    Sull'arancio, una nota che vale la pena scrivere: l'arancio
-   vivo (#e2600d) su fondo chiaro da' 3,57:1, sotto la soglia per
-   il testo. Percio' ce ne sono due — uno vivo per le campiture e
-   il disegno, uno bruciato (#b04405, 5,7:1) per testo e bordi.
-   Un solo arancio avrebbe voluto dire o testo illeggibile o un
+   vivo (#e2600d) sul fondo cemento da' 2,96:1, sotto la soglia
+   per il testo. Percio' ce ne sono due — uno vivo per le
+   campiture e il disegno, uno bruciato per testo e bordi. Un
+   solo arancio avrebbe voluto dire o testo illeggibile o un
    colore spento.
+
+   Il bruciato e' #963900 e prima era #b04405. Cambiato perche'
+   #b04405 sul cemento fa 4,76:1 e passa, ma il prezzo
+   dell'opzione scelta e' scritto in arancio SOPRA il velo
+   arancione della selezione — e li' il fondo non e' piu' il
+   cemento, e' rgba(...,.09) posato sopra, cioe' #e7dbd2. Su
+   quello faceva 4,21:1, sotto la soglia per un testo da 11,5 px.
+   Il velo si compone col fondo, e il contrasto va misurato su
+   quello che ne esce.
+
+   L'ha trovato Soglia (soglia.17labs.it) passando la pagina resa
+   invece dei soli colori dichiarati. Adesso il caso peggiore
+   possibile e' 4,80:1, e su bianco siamo a 7,29.
 
    Ordine:  1 token · 2 base · 3 testata · 4 comandi
             5 disegno · 6 distinta · 7 pieghe · 8 stampa
@@ -40,8 +53,8 @@ html[data-tema="chiaro"] {
   --fondo: #eceae6;  --fondo-2: #e2dfd9;  --piano: #ffffff;
   --filo: #d4d0c8;   --filo-2: #a9a49a;
   --testo-1: #1a1a18; --testo-2: #4c4a45; --testo-3: #5d5a53;
-  --accento: #b04405; --accento-vivo: #e2600d; --su-accento: #ffffff;
-  --accento-velo: rgba(176, 68, 5, .09);
+  --accento: #963900; --accento-vivo: #e2600d; --su-accento: #ffffff;
+  --accento-velo: rgba(150, 57, 0, .09);   /* lo stesso arancio, non un altro */
   --spento: #5a574f;  --spento-velo: rgba(138, 134, 126, .12);  /* scurito due volte: #8a867e dava 3,02:1, #6f6b64 dava 4,41 */
   --griglia: rgba(26, 26, 24, .07);
   color-scheme: light;

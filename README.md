@@ -122,10 +122,18 @@ Il tema è il quarto di fila e non somiglia agli altri tre: il sito è inchiostr
 ottone, Norma è carta calda e amaranto in graziato, Estratto è ardesia e verde
 contabile tabulare, qui è **cemento e arancio segnaletico**, da banco di lavoro.
 
-Sull'arancio, una nota: l'arancio vivo `#e2600d` su fondo chiaro dà 3,57:1, sotto la
+Sull'arancio, una nota: l'arancio vivo `#e2600d` sul fondo cemento dà 2,96:1, sotto la
 soglia per il testo. Perciò ce ne sono due — uno vivo per le campiture e il disegno,
-uno bruciato `#b04405` per testo e bordi. Contrasto verificato: **121 elementi, nessuno
-sotto la soglia WCAG AA nei due temi**, minimo 4,76.
+uno bruciato `#963900` per testo e bordi.
+
+Il bruciato era `#b04405` ed è stato scurito, perché il prezzo dell'opzione scelta è
+scritto in arancio **sopra il velo arancione della selezione**: lì il fondo non è più il
+cemento ma `#e7dbd2`, e il contrasto scendeva a **4,21:1** su un testo da 11,5 px. Sul
+cemento nudo faceva 4,76 e passava — il velo non era stato composto.
+
+L'ha trovato [Soglia](https://soglia.17labs.it), misurando la pagina resa invece dei soli
+colori dichiarati. Contrasto verificato adesso: **128 elementi, nessuno sotto la soglia
+WCAG AA nei due temi**, minimo 4,86.
 
 ## Provare
 
