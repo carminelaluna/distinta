@@ -26,6 +26,7 @@
     "larghezza": { "etichetta": "Larghezza", "min": 400, "max": 2400, "passo": 10, "predefinito": 1200 },
     "altezza":   { "etichetta": "Altezza",   "min": 400, "max": 2400, "passo": 10, "predefinito": 1400 },
     "areaMinimaFatturabile": 1.0,
+    "spessoreTelaioDisegno": 70,
     "notaAreaMinima": "Sotto il metro quadro si fattura comunque un metro quadro: e' la prassi del settore e va detta prima, non in fattura."
   },
 
@@ -61,10 +62,10 @@
       "scelta": "singola",
       "predefinito": "selettivo",
       "opzioni": [
-        { "id": "doppio",    "etichetta": "Doppio 4-16-4",        "dettaglio": "Ug 1,1 W/m2K",           "prezzoMq": 0 },
-        { "id": "selettivo", "etichetta": "Doppio selettivo",     "dettaglio": "Controllo solare",       "prezzoMq": 35 },
-        { "id": "triplo",    "etichetta": "Triplo 4-14-4-14-4",   "dettaglio": "Ug 0,6 W/m2K, 44 mm",    "prezzoMq": 75 },
-        { "id": "acustico",  "etichetta": "Doppio acustico",      "dettaglio": "Abbattimento 42 dB",     "prezzoMq": 95 }
+        { "id": "doppio",    "etichetta": "Doppio 4-16-4",        "dettaglio": "Ug 1,1 W/m2K",           "prezzoMq": 0, "tinta": "#d3e3ea" },
+        { "id": "selettivo", "etichetta": "Doppio selettivo",     "dettaglio": "Controllo solare",       "prezzoMq": 35, "tinta": "#c5dfd8" },
+        { "id": "triplo",    "etichetta": "Triplo 4-14-4-14-4",   "dettaglio": "Ug 0,6 W/m2K, 44 mm",    "prezzoMq": 75, "tinta": "#c8dced" },
+        { "id": "acustico",  "etichetta": "Doppio acustico",      "dettaglio": "Abbattimento 42 dB",     "prezzoMq": 95, "tinta": "#d6d9dd" }
       ]
     },
     {
@@ -73,10 +74,10 @@
       "scelta": "singola",
       "predefinito": "bianco",
       "opzioni": [
-        { "id": "bianco",    "etichetta": "Bianco",                    "dettaglio": "RAL 9016",       "rincaro": 0 },
-        { "id": "avorio",    "etichetta": "Avorio",                    "dettaglio": "RAL 1013",       "rincaro": 0.06 },
-        { "id": "antracite", "etichetta": "Grigio antracite",          "dettaglio": "RAL 7016",       "rincaro": 0.12 },
-        { "id": "effetto-legno", "etichetta": "Effetto legno",         "dettaglio": "Pellicola noce", "rincaro": 0.18 }
+        { "id": "bianco",    "etichetta": "Bianco",                    "dettaglio": "RAL 9016",       "rincaro": 0, "tinta": "#f2f2ef" },
+        { "id": "avorio",    "etichetta": "Avorio",                    "dettaglio": "RAL 1013",       "rincaro": 0.06, "tinta": "#e6dbc2" },
+        { "id": "antracite", "etichetta": "Grigio antracite",          "dettaglio": "RAL 7016",       "rincaro": 0.12, "tinta": "#3b3e41" },
+        { "id": "effetto-legno", "etichetta": "Effetto legno",         "dettaglio": "Pellicola noce", "rincaro": 0.18, "tinta": "#8a5b38" }
       ]
     },
     {

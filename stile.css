@@ -1,0 +1,249 @@
+/* ============================================================
+   Distinta — foglio di stile
+   Autonomo: nessun file condiviso, nessun carattere da scaricare,
+   nessuna richiesta a domini esterni.
+
+   Il quarto tema di fila, e i quattro non si somigliano:
+
+     17labs.it   inchiostro scuro e ottone, lineare, largo
+     Norma       carta calda e amaranto, graziato, colonna stretta
+     Estratto    ardesia fredda e verde contabile, tabulare
+     Distinta    cemento e arancio segnaletico, da officina
+
+   Qui il registro e' quello del banco di lavoro: fondo cemento,
+   un arancio da cartello, angoli vivi, quote monospaziate. Il
+   disegno tecnico e' l'oggetto principale della pagina, non una
+   decorazione: chi compra un serramento su misura vuole vedere
+   la finestra prima di vedere il prezzo.
+
+   Sull'arancio, una nota che vale la pena scrivere: l'arancio
+   vivo (#e2600d) su fondo chiaro da' 3,57:1, sotto la soglia per
+   il testo. Percio' ce ne sono due — uno vivo per le campiture e
+   il disegno, uno bruciato (#b04405, 5,7:1) per testo e bordi.
+   Un solo arancio avrebbe voluto dire o testo illeggibile o un
+   colore spento.
+
+   Ordine:  1 token · 2 base · 3 testata · 4 comandi
+            5 disegno · 6 distinta · 7 pieghe · 8 stampa
+   ============================================================ */
+
+/* ====================== 1 — TOKEN ========================== */
+:root {
+  --largo: 1240px;
+  --testo: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --quote: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --p1: 8px; --p2: 14px; --p3: 22px; --p4: 34px; --p5: 54px;
+  --curva: cubic-bezier(.22, .61, .36, 1);
+}
+
+html[data-tema="chiaro"] {
+  --fondo: #eceae6;  --fondo-2: #e2dfd9;  --piano: #ffffff;
+  --filo: #d4d0c8;   --filo-2: #a9a49a;
+  --testo-1: #1a1a18; --testo-2: #4c4a45; --testo-3: #5d5a53;
+  --accento: #b04405; --accento-vivo: #e2600d; --su-accento: #ffffff;
+  --accento-velo: rgba(176, 68, 5, .09);
+  --spento: #5a574f;  --spento-velo: rgba(138, 134, 126, .12);  /* scurito due volte: #8a867e dava 3,02:1, #6f6b64 dava 4,41 */
+  --griglia: rgba(26, 26, 24, .07);
+  color-scheme: light;
+}
+
+html[data-tema="scuro"] {
+  --fondo: #17171a;  --fondo-2: #1e1e22;  --piano: #24242a;
+  --filo: #33333a;   --filo-2: #4d4d56;
+  --testo-1: #ecebe8; --testo-2: #b0aea9; --testo-3: #979593;   /* schiarito: a #8b8985 dava 4,42:1 */
+  --accento: #ff8a3d; --accento-vivo: #ff8a3d; --su-accento: #17171a;
+  --accento-velo: rgba(255, 138, 61, .13);
+  --spento: #a09ea3;  --spento-velo: rgba(119, 117, 122, .14);  /* schiarito: a #77757a dava 3,93:1 */
+  --griglia: rgba(255, 255, 255, .05);
+  color-scheme: dark;
+}
+
+/* ====================== 2 — BASE =========================== */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0; background: var(--fondo); color: var(--testo-1);
+  font-family: var(--testo); font-size: 15.5px; line-height: 1.6;
+  -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: 100%;
+}
+h1, h2, h3 { margin: 0; font-weight: 600; line-height: 1.25; letter-spacing: -0.015em; }
+p { margin: 0 0 var(--p2); } p:last-child { margin-bottom: 0; }
+a { color: var(--accento); }
+::selection { background: var(--accento); color: var(--su-accento); }
+:focus-visible { outline: 2px solid var(--accento); outline-offset: 2px; }
+
+.largo { width: 100%; max-width: var(--largo); margin: 0 auto; padding-inline: clamp(18px, 4vw, 36px); }
+.nascosto { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+            overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.q { font-family: var(--quote); font-variant-numeric: tabular-nums; }
+.targhetta { font-family: var(--quote); font-size: 10.5px; letter-spacing: .14em;
+             text-transform: uppercase; color: var(--testo-3); }
+
+/* ====================== 3 — TESTATA ======================== */
+.testata { padding-block: var(--p4) var(--p3); }
+.testata__riga { display: flex; align-items: center; gap: var(--p2); }
+.firma { margin-right: auto; text-decoration: none; font-family: var(--quote);
+         font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--testo-3); }
+.firma:hover { color: var(--accento); }
+.interruttore { width: 34px; height: 34px; display: grid; place-items: center;
+  border: 1px solid var(--filo-2); background: transparent; color: var(--testo-2);
+  cursor: pointer; padding: 0; transition: border-color .2s var(--curva), color .2s var(--curva); }
+.interruttore:hover { border-color: var(--accento); color: var(--accento); }
+.interruttore svg { width: 16px; height: 16px; }
+html[data-tema="scuro"] .icona-sole { display: block; }
+html[data-tema="scuro"] .icona-luna { display: none; }
+html[data-tema="chiaro"] .icona-sole { display: none; }
+html[data-tema="chiaro"] .icona-luna { display: block; }
+
+.titolo { margin-top: var(--p4); font-size: clamp(30px, 4.6vw, 44px); letter-spacing: -0.03em; }
+.titolo b { color: var(--accento); font-weight: 600; }
+.sommario { margin-top: var(--p2); max-width: 64ch; color: var(--testo-2); }
+
+/* ====================== 4 — COMANDI ======================== */
+.banco { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 420px);
+         gap: var(--p4); align-items: start; padding-bottom: var(--p5); }
+
+.blocco { margin-bottom: var(--p4); }
+.blocco > .targhetta { display: block; margin-bottom: var(--p2);
+  padding-bottom: 6px; border-bottom: 1px solid var(--filo); }
+
+.misure { display: grid; grid-template-columns: 1fr 1fr; gap: var(--p3); }
+.misura label { display: block; font-size: 13.5px; color: var(--testo-2); margin-bottom: 6px; }
+.misura__riga { display: flex; align-items: center; gap: 10px; }
+.misura input[type="number"] {
+  width: 96px; padding: 9px 10px; font-family: var(--quote); font-size: 15px;
+  color: var(--testo-1); background: var(--piano);
+  border: 1px solid var(--filo-2); border-radius: 0;
+}
+.misura input[type="number"]:focus { outline: none; border-color: var(--accento); }
+.misura input[type="range"] { flex: 1; accent-color: var(--accento-vivo); min-width: 0; }
+.misura__limiti { margin-top: 6px; font-family: var(--quote); font-size: 11px; color: var(--testo-3); }
+.misura__limiti b { color: var(--accento); font-weight: 500; }
+
+.opzioni { display: grid; grid-template-columns: repeat(auto-fit, minmax(168px, 1fr)); gap: 8px; }
+.opzione {
+  position: relative; text-align: left; cursor: pointer;
+  padding: 11px 12px; background: var(--piano);
+  border: 1px solid var(--filo); border-left: 3px solid transparent;
+  font-family: var(--testo); font-size: 14px; color: var(--testo-1);
+  transition: border-color .15s var(--curva), background-color .15s var(--curva);
+}
+.opzione:hover:not(:disabled) { border-color: var(--filo-2); border-left-color: var(--accento-vivo); }
+.opzione[aria-pressed="true"] {
+  border-color: var(--accento); border-left-color: var(--accento);
+  background: var(--accento-velo);
+}
+.opzione:disabled { cursor: not-allowed; color: var(--spento);
+  background: var(--spento-velo); border-style: dashed; }
+.opzione b { display: block; font-weight: 600; }
+.opzione small { display: block; margin-top: 2px; font-size: 12px; color: var(--testo-3); }
+.opzione:disabled small { color: var(--spento); }
+.opzione__prezzo { position: absolute; top: 10px; right: 11px;
+  font-family: var(--quote); font-size: 11.5px; color: var(--testo-3); }
+.opzione[aria-pressed="true"] .opzione__prezzo { color: var(--accento); }
+
+/* Il motivo dell'indisponibilita' sta sotto, sempre visibile: un
+   suggerimento al passaggio del mouse non esiste sul telefono, e
+   proprio li' serve di piu'. */
+.motivo { grid-column: 1 / -1; margin-top: -2px; padding: 9px 12px;
+  border-left: 3px solid var(--spento); background: var(--spento-velo);
+  font-size: 13px; line-height: 1.5; color: var(--testo-2); }
+.motivo b { font-weight: 600; color: var(--testo-1); }
+
+.riga-campi { display: flex; flex-wrap: wrap; gap: var(--p3); align-items: flex-end; }
+.campo label { display: block; font-size: 13.5px; color: var(--testo-2); margin-bottom: 6px; }
+.campo select, .campo input[type="number"] {
+  padding: 9px 10px; font-family: var(--testo); font-size: 14.5px;
+  color: var(--testo-1); background: var(--piano); border: 1px solid var(--filo-2); border-radius: 0;
+}
+.campo input[type="number"] { font-family: var(--quote); width: 88px; }
+
+.spunta { display: flex; align-items: flex-start; gap: 9px; padding: 9px 0;
+  font-size: 14px; color: var(--testo-1); cursor: pointer; }
+.spunta input { margin-top: 3px; accent-color: var(--accento-vivo); }
+.spunta span small { display: block; font-size: 12px; color: var(--testo-3); }
+
+/* ====================== 5 — DISEGNO ======================== */
+.pannello { position: sticky; top: var(--p2); }
+
+.disegno {
+  background: var(--piano); border: 1px solid var(--filo);
+  background-image:
+    linear-gradient(var(--griglia) 1px, transparent 1px),
+    linear-gradient(90deg, var(--griglia) 1px, transparent 1px);
+  background-size: 20px 20px;
+  padding: var(--p3);
+}
+.disegno svg { width: 100%; height: auto; display: block; }
+.disegno__nota { margin-top: 10px; font-family: var(--quote); font-size: 11px;
+  color: var(--testo-3); text-align: center; }
+
+/* ====================== 6 — DISTINTA ======================= */
+.distinta { margin-top: var(--p3); background: var(--piano); border: 1px solid var(--filo); }
+.distinta h2 { padding: var(--p2) var(--p3); background: var(--fondo-2);
+  border-bottom: 1px solid var(--filo); font-size: 13px; font-family: var(--quote);
+  letter-spacing: .12em; text-transform: uppercase; font-weight: 500; }
+.distinta table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+.distinta td { padding: 8px var(--p3); border-bottom: 1px solid var(--filo); vertical-align: top; }
+.distinta tr:last-child td { border-bottom: 0; }
+.distinta .voce { color: var(--testo-1); }
+.distinta .dett { display: block; font-size: 11.5px; color: var(--testo-3);
+  font-family: var(--quote); margin-top: 1px; }
+.distinta .imp { text-align: right; white-space: nowrap; font-family: var(--quote);
+  font-variant-numeric: tabular-nums; color: var(--testo-1); }
+.distinta .sconto .imp, .distinta .sconto .voce { color: var(--accento); }
+.distinta .somma td { border-top: 1px solid var(--filo-2); font-weight: 600; }
+.distinta .totale td { border-top: 2px solid var(--accento); font-size: 17px; font-weight: 600;
+  padding-top: 12px; padding-bottom: 14px; }
+.distinta .totale .imp { color: var(--accento); }
+
+.azioni { display: flex; flex-wrap: wrap; gap: 8px; margin-top: var(--p2); }
+.bottone { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px;
+  border: 1px solid var(--accento); background: var(--accento); color: var(--su-accento);
+  font-family: var(--quote); font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+  cursor: pointer; transition: filter .2s var(--curva); }
+.bottone:hover { filter: brightness(1.08); }
+.bottone--vuoto { background: transparent; color: var(--testo-1); border-color: var(--filo-2); }
+.bottone--vuoto:hover { border-color: var(--accento); color: var(--accento); filter: none; }
+.bottone svg { width: 14px; height: 14px; }
+
+.avviso { margin-top: var(--p2); padding: 10px 12px; border-left: 3px solid var(--accento);
+  background: var(--accento-velo); font-size: 13px; color: var(--testo-2); }
+.avviso:empty { display: none; }
+
+/* ====================== 7 — PIEGHE ========================= */
+.pieghe { padding-block: var(--p4) var(--p5); border-top: 1px solid var(--filo); }
+.cifre { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--p3) var(--p2); margin-top: var(--p3); }
+.cifre b { display: block; font-family: var(--quote); font-size: 26px; font-weight: 500;
+  color: var(--accento); letter-spacing: -0.02em; }
+.cifre span { display: block; margin-top: 4px; font-size: 13px; color: var(--testo-2); line-height: 1.5; }
+.chiosa { margin-top: var(--p3); font-size: 14px; line-height: 1.7; color: var(--testo-3); max-width: 76ch; }
+.chiosa strong { color: var(--testo-2); font-weight: 600; }
+.piede { border-top: 1px solid var(--filo); padding-block: var(--p3);
+  font-size: 13px; color: var(--testo-3); }
+.piede a { color: var(--accento); }
+
+@media (max-width: 900px) {
+  .banco { grid-template-columns: 1fr; }
+  .pannello { position: static; }
+  .misure { grid-template-columns: 1fr; }
+}
+
+/* ====================== 8 — STAMPA ========================= */
+/* Il preventivo si stampa: e' il momento in cui la configurazione
+   diventa un documento da mandare. Via i comandi, resta il disegno
+   con le quote e la distinta con gli importi. */
+@media print {
+  .testata__riga, .comandi, .azioni, .pieghe, .interruttore { display: none !important; }
+  body { background: #fff; color: #000; font-size: 10pt; }
+  .banco { grid-template-columns: 1fr; gap: 16px; }
+  .pannello { position: static; }
+  .disegno { border-color: #999; background-image: none; break-inside: avoid; }
+  .distinta { border-color: #999; break-inside: avoid; }
+  .titolo { font-size: 20pt; margin-top: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: .001ms !important; }
+}

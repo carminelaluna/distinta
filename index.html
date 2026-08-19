@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="it" data-tema="chiaro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Distinta — configuratore di serramenti su misura</title>
+<meta name="description" content="Scegli misure, profilo, vetro e accessori: il disegno si aggiorna, le combinazioni impossibili si spengono con il loro motivo, e il prezzo si scompone voce per voce.">
+<meta name="theme-color" content="#eceae6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#17171a" media="(prefers-color-scheme: dark)">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Distinta — configuratore di serramenti su misura">
+<meta property="og:description" content="Le combinazioni impossibili si spengono, e ognuna dice perche. Il prezzo si scompone voce per voce.">
+<meta property="og:locale" content="it_IT">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='3' fill='%23eceae6'/%3E%3Crect x='6.5' y='5.5' width='19' height='21' fill='none' stroke='%231a1a18' stroke-width='2'/%3E%3Cpath d='M16 5.5v21' stroke='%231a1a18' stroke-width='2'/%3E%3Cpath d='M6.5 26.5 16 16l9.5 10.5' fill='none' stroke='%23b04405' stroke-width='1.6'/%3E%3C/svg%3E">
+
+<script>
+  (function () {
+    var d = document.documentElement;
+    try {
+      var t = localStorage.getItem('distinta-tema');
+      if (t !== 'chiaro' && t !== 'scuro') {
+        t = matchMedia('(prefers-color-scheme: dark)').matches ? 'scuro' : 'chiaro';
+      }
+      d.setAttribute('data-tema', t);
+    } catch (e) {}
+  })();
+</script>
+<link rel="stylesheet" href="stile.css">
+</head>
+<body>
+
+<header class="largo testata">
+  <div class="testata__riga">
+    <a class="firma" href="https://17labs.it" rel="noopener">Un progetto di 17Labs</a>
+    <button class="interruttore" id="tema" type="button" aria-label="Cambia tema chiaro o scuro">
+      <svg class="icona-sole" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.4M12 19.6V22M2 12h2.4M19.6 12H22M4.9 4.9l1.7 1.7M17.4 17.4l1.7 1.7M19.1 4.9l-1.7 1.7M6.6 17.4l-1.7 1.7"/></svg>
+      <svg class="icona-luna" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.6A8.6 8.6 0 0 1 9.4 3.5a8.6 8.6 0 1 0 11.1 11.1Z"/></svg>
+    </button>
+  </div>
+
+  <h1 class="titolo">Distinta<b>.</b></h1>
+  <p class="targhetta" style="margin-top:12px">Configuratore · finestra su misura</p>
+  <p class="sommario">
+    Scegli misure e opzioni: il disegno si ridisegna con le quote, le combinazioni che non si
+    possono fabbricare si spengono <strong>dicendo perché</strong>, e il prezzo si scompone
+    voce per voce. Un totale secco si contratta; una distinta si discute.
+  </p>
+</header>
+
+<main class="largo">
+  <div class="banco">
+
+    <div class="comandi">
+      <section class="blocco">
+        <span class="targhetta">Misure del foro</span>
+        <div class="misure">
+          <div class="misura">
+            <label for="larghezza">Larghezza in millimetri</label>
+            <div class="misura__riga">
+              <input type="number" id="larghezza" step="10">
+              <input type="range" id="larghezza-cursore" step="10" aria-label="Larghezza, cursore">
+            </div>
+            <p class="misura__limiti" id="limiti-larghezza"></p>
+          </div>
+          <div class="misura">
+            <label for="altezza">Altezza in millimetri</label>
+            <div class="misura__riga">
+              <input type="number" id="altezza" step="10">
+              <input type="range" id="altezza-cursore" step="10" aria-label="Altezza, cursore">
+            </div>
+            <p class="misura__limiti" id="limiti-altezza"></p>
+          </div>
+        </div>
+      </section>
+
+      <div id="gruppi"></div>
+
+      <section class="blocco">
+        <span class="targhetta">Quantità, servizi e aliquota</span>
+        <div class="riga-campi">
+          <div class="campo">
+            <label for="quantita">Pezzi</label>
+            <input type="number" id="quantita" min="1" max="200" step="1" value="1">
+          </div>
+          <div class="campo">
+            <label for="iva">Aliquota IVA</label>
+            <select id="iva"></select>
+          </div>
+        </div>
+        <div id="servizi" style="margin-top:var(--p2)"></div>
+        <p class="misura__limiti" id="nota-iva"></p>
+      </section>
+    </div>
+
+    <div class="pannello">
+      <div class="disegno">
+        <div id="disegno" role="img" aria-label="Disegno tecnico del serramento configurato"></div>
+        <p class="disegno__nota" id="disegno-nota"></p>
+      </div>
+
+      <div class="distinta">
+        <h2>Distinta base</h2>
+        <table id="distinta"><tbody></tbody></table>
+      </div>
+
+      <div class="avviso" id="avviso"></div>
+
+      <div class="azioni">
+        <button class="bottone" type="button" id="stampa">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9V3h12v6M6 18H4v-7h16v7h-2M8 14h8v7H8z"/></svg>
+          Stampa il preventivo
+        </button>
+        <button class="bottone bottone--vuoto" type="button" id="collega">Copia il link</button>
+        <button class="bottone bottone--vuoto" type="button" id="azzera">Ricomincia</button>
+      </div>
+    </div>
+  </div>
+
+  <noscript>
+    <p class="avviso"><strong>Serve JavaScript.</strong> Il configuratore calcola regole e
+      prezzi dentro il browser: senza JavaScript non c'è niente che possa farlo, perché non
+      c'è nessun server dietro.</p>
+  </noscript>
+
+  <section class="pieghe">
+    <p class="targhetta">Come funziona</p>
+    <div class="cifre">
+      <div><b>2.560</b><span>combinazioni possibili, enumerate tutte</span></div>
+      <div><b>664</b><span>configurazioni valide raggiungibili cliccando</span></div>
+      <div><b>0</b><span>stati impossibili raggiungibili dall'interfaccia</span></div>
+      <div><b>0</b><span>chiamate a un server: il calcolo è qui</span></div>
+    </div>
+
+    <p class="chiosa">
+      <strong>Le incompatibilità sono simmetriche.</strong> Se scegli prima il vetro triplo
+      sparisce il profilo da 60; se scegli prima il profilo da 60 sparisce il vetro triplo.
+      Un configuratore che gestisce una direzione sola ti costringe a tornare indietro e
+      indovinare, ed è il difetto più comune di questi strumenti.
+    </p>
+    <p class="chiosa">
+      <strong>Ogni opzione spenta dice il motivo.</strong> «Il vetro triplo è spesso 44 mm: il
+      fermavetro del profilo da 60 arriva a 34.» Un'opzione grigia senza spiegazione viene
+      letta come un guasto del sito, e chi sta comprando se ne va.
+    </p>
+    <p class="chiosa">
+      <strong>Il prodotto non è nel codice.</strong> Opzioni, prezzi, regole e vincoli stanno
+      in <span class="q">catalogo.json</span>: per configurare un cancello invece di una
+      finestra si riscrive quel file e il motore non si tocca.
+    </p>
+    <p class="chiosa">
+      <strong>Verificato su tre livelli.</strong> Venticinque casi calcolati a mano; tutte le
+      2.560 combinazioni confrontate con un controllo scritto a parte; e una visita completa
+      dello spazio raggiungibile, che parte dai predefiniti e si muove solo sulle opzioni
+      dichiarate disponibili. Quest'ultima ha trovato subito un difetto vero: la
+      configurazione iniziale del catalogo violava un vincolo del catalogo stesso.
+    </p>
+    <p class="chiosa">
+      <strong>Cosa non è:</strong> i prezzi sono inventati e verosimili, non un listino reale,
+      e il preventivo che esce non impegna nessuno. È una dimostrazione di come funziona la
+      logica, non un prodotto in vendita.
+    </p>
+  </section>
+</main>
+
+<footer class="piede">
+  <div class="largo">
+    Dimostrazione tecnica. Misure, regole e prezzi sono inventati a scopo di esempio.
+    <br>
+    Codice e realizzazione: <a href="https://17labs.it" rel="noopener">17Labs — Carmine La Luna</a>.
+  </div>
+</footer>
+
+<script type="module" src="app.js"></script>
+
+<script>
+(function () {
+  function controlla() {
+    if (window.__distintaPronta) return;
+    if (location.protocol === 'http:' || location.protocol === 'https:') return;
+    var a = document.createElement('div');
+    a.setAttribute('style', 'position:fixed;inset:0;z-index:999;overflow:auto;background:#eceae6;'
+      + 'color:#1a1a18;padding:10vh 6vw;font:16px/1.7 system-ui,-apple-system,Segoe UI,Roboto,sans-serif');
+    a.innerHTML = '<div style="max-width:60ch;margin:0 auto">'
+      + '<p style="font:500 11px/1 ui-monospace,monospace;letter-spacing:.14em;'
+      + 'text-transform:uppercase;color:#b04405;margin:0 0 16px">Distinta</p>'
+      + '<h1 style="font-size:28px;line-height:1.2;margin:0 0 16px">Serve un server, non un doppio click</h1>'
+      + '<p style="color:#4c4a45;margin:0 0 18px">Aprendo il file direttamente il protocollo è '
+      + '<code>' + location.protocol + '</code>, e il browser blocca i moduli JavaScript e la '
+      + 'lettura del catalogo. È una regola di sicurezza, non un guasto.</p>'
+      + '<p style="color:#4c4a45;margin:0"><strong>Doppio click su '
+      + '<code style="color:#b04405">anteprima.cmd</code></strong>, nella stessa cartella.</p>'
+      + '</div>';
+    document.body.appendChild(a);
+  }
+  if (document.readyState === 'complete') setTimeout(controlla, 800);
+  else window.addEventListener('load', function () { setTimeout(controlla, 800); });
+})();
+</script>
+</body>
+</html>

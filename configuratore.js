@@ -25,6 +25,13 @@
 
 const arrotonda = n => Math.round(n * 100) / 100;
 
+/* Le misure nelle descrizioni vanno scritte come le scrive un
+   italiano: 1,68 m2 e non 1.68. Sembra un dettaglio, ma un
+   preventivo con i decimali all'inglese in mezzo agli euro con la
+   virgola si legge come un modulo tradotto male. */
+const conVirgola = (n, decimali = 2) =>
+  n.toLocaleString('it-IT', { minimumFractionDigits: decimali, maximumFractionDigits: decimali });
+
 export function creaConfiguratore(catalogo) {
   const gruppi = new Map(catalogo.gruppi.map(g => [g.id, g]));
   const opzioneDi = (idGruppo, idOpzione) =>
@@ -116,8 +123,20 @@ export function creaConfiguratore(catalogo) {
         }
 
         const ipotesi = conScelta(config, g.id, o.id);
-        const regole = regoleViolate(ipotesi);
-        const misure = vincoliViolati(ipotesi);
+
+        /* Per i gruppi a scelta singola gli accessori non bloccano.
+           Un accessorio e' un'aggiunta: non puo' impedire di cambiare
+           il tipo di apertura. Se diventa incompatibile lo toglie
+           applica(), dicendolo.
+
+           Senza questa riga, chi ha messo la zanzariera si ritrova
+           "Fisso" spento con una spiegazione che parla della
+           zanzariera: corretta, ma nella direzione sbagliata. Deve
+           tornare indietro, togliere l'accessorio e riprovare. */
+        const perControllo = g.scelta === 'multipla'
+          ? ipotesi : { ...ipotesi, accessori: [] };
+        const regole = regoleViolate(perControllo);
+        const misure = vincoliViolati(perControllo);
 
         if (!regole.length && !misure.length) {
           esito[g.id][o.id] = { disponibile: true, selezionato };
@@ -198,13 +217,13 @@ export function creaConfiguratore(catalogo) {
 
     const righe = [];
     const base = arrotonda(profilo.prezzoMq * area);
-    righe.push({ voce: `${profilo.etichetta}`, dettaglio: `${profilo.prezzoMq} €/m² × ${area.toFixed(2)} m²`, importo: base });
+    righe.push({ voce: `${profilo.etichetta}`, dettaglio: `${profilo.prezzoMq} €/m² × ${conVirgola(area)} m²`, importo: base });
 
     const rincaro = arrotonda(base * (colore.rincaro || 0));
     if (rincaro) righe.push({ voce: colore.etichetta, dettaglio: `+${Math.round(colore.rincaro * 100)}% sul profilo`, importo: rincaro });
 
     const costoVetro = arrotonda((vetro.prezzoMq || 0) * area);
-    if (costoVetro) righe.push({ voce: vetro.etichetta, dettaglio: `${vetro.prezzoMq} €/m² × ${area.toFixed(2)} m²`, importo: costoVetro });
+    if (costoVetro) righe.push({ voce: vetro.etichetta, dettaglio: `${vetro.prezzoMq} €/m² × ${conVirgola(area)} m²`, importo: costoVetro });
 
     const costoApertura = apertura.prezzo || 0;
     if (costoApertura) righe.push({ voce: apertura.etichetta, dettaglio: 'ferramenta e montaggio anta', importo: costoApertura });
