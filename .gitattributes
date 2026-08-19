@@ -1,0 +1,5 @@
+# Fine riga normalizzati: senza, git avvisa a ogni commit su Windows e
+# un clone su Linux mostra tutti i file come modificati.
+# I .cmd fanno eccezione perche' cmd.exe pretende CRLF.
+* text=auto eol=lf
+*.cmd text eol=crlf

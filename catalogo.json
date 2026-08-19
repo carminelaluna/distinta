@@ -1,0 +1,191 @@
+{
+  "nota": [
+    "Il prodotto sta qui dentro, non nel codice. Opzioni, prezzi, regole e",
+    "vincoli dimensionali sono dati: per configurare un altro prodotto si",
+    "riscrive questo file e il motore non si tocca.",
+    "",
+    "Le regole sono incompatibilita' SIMMETRICHE fra insiemi di opzioni.",
+    "E' una scelta precisa: cosi' non conta l'ordine in cui uno sceglie.",
+    "Se prendi prima il vetro triplo, sparisce il profilo da 60; se prendi",
+    "prima il profilo da 60, sparisce il vetro triplo. Un configuratore che",
+    "gestisce una direzione sola costringe l'utente a tornare indietro e",
+    "indovinare, ed e' il difetto piu' comune di questi strumenti.",
+    "",
+    "Ogni regola porta il suo 'perche'': quando un'opzione non e'",
+    "disponibile va detto il motivo, altrimenti sembra un guasto.",
+    "",
+    "I prezzi sono inventati e verosimili, non sono un listino reale."
+  ],
+
+  "prodotto": {
+    "nome": "Finestra su misura",
+    "unita": "serramento"
+  },
+
+  "misure": {
+    "larghezza": { "etichetta": "Larghezza", "min": 400, "max": 2400, "passo": 10, "predefinito": 1200 },
+    "altezza":   { "etichetta": "Altezza",   "min": 400, "max": 2400, "passo": 10, "predefinito": 1400 },
+    "areaMinimaFatturabile": 1.0,
+    "notaAreaMinima": "Sotto il metro quadro si fattura comunque un metro quadro: e' la prassi del settore e va detta prima, non in fattura."
+  },
+
+  "gruppi": [
+    {
+      "id": "profilo",
+      "etichetta": "Profilo",
+      "scelta": "singola",
+      "predefinito": "pvc-76",
+      "opzioni": [
+        { "id": "pvc-60",     "etichetta": "PVC 60 mm",                  "dettaglio": "Tre camere, guarnizione doppia", "prezzoMq": 180 },
+        { "id": "pvc-76",     "etichetta": "PVC 76 mm",                  "dettaglio": "Sei camere, guarnizione tripla", "prezzoMq": 240 },
+        { "id": "alluminio",  "etichetta": "Alluminio a taglio termico", "dettaglio": "Barriera in poliammide",         "prezzoMq": 320 },
+        { "id": "legno-all",  "etichetta": "Legno-alluminio",            "dettaglio": "Larice interno, guscio esterno", "prezzoMq": 420 }
+      ]
+    },
+    {
+      "id": "apertura",
+      "etichetta": "Apertura",
+      "scelta": "singola",
+      "predefinito": "battente2",
+      "opzioni": [
+        { "id": "fisso",      "etichetta": "Fisso",                 "dettaglio": "Non apribile",                 "prezzo": 0 },
+        { "id": "battente1",  "etichetta": "Un anta a battente",    "dettaglio": "Apertura interna",             "prezzo": 85 },
+        { "id": "battente2",  "etichetta": "Due ante a battente",   "dettaglio": "Con montante mobile",          "prezzo": 150 },
+        { "id": "vasistas",   "etichetta": "Vasistas",              "dettaglio": "Ribalta dall alto",            "prezzo": 110 },
+        { "id": "scorrevole", "etichetta": "Alzante scorrevole",    "dettaglio": "Binario a pavimento",          "prezzo": 260 }
+      ]
+    },
+    {
+      "id": "vetro",
+      "etichetta": "Vetrocamera",
+      "scelta": "singola",
+      "predefinito": "selettivo",
+      "opzioni": [
+        { "id": "doppio",    "etichetta": "Doppio 4-16-4",        "dettaglio": "Ug 1,1 W/m2K",           "prezzoMq": 0 },
+        { "id": "selettivo", "etichetta": "Doppio selettivo",     "dettaglio": "Controllo solare",       "prezzoMq": 35 },
+        { "id": "triplo",    "etichetta": "Triplo 4-14-4-14-4",   "dettaglio": "Ug 0,6 W/m2K, 44 mm",    "prezzoMq": 75 },
+        { "id": "acustico",  "etichetta": "Doppio acustico",      "dettaglio": "Abbattimento 42 dB",     "prezzoMq": 95 }
+      ]
+    },
+    {
+      "id": "colore",
+      "etichetta": "Finitura",
+      "scelta": "singola",
+      "predefinito": "bianco",
+      "opzioni": [
+        { "id": "bianco",    "etichetta": "Bianco",                    "dettaglio": "RAL 9016",       "rincaro": 0 },
+        { "id": "avorio",    "etichetta": "Avorio",                    "dettaglio": "RAL 1013",       "rincaro": 0.06 },
+        { "id": "antracite", "etichetta": "Grigio antracite",          "dettaglio": "RAL 7016",       "rincaro": 0.12 },
+        { "id": "effetto-legno", "etichetta": "Effetto legno",         "dettaglio": "Pellicola noce", "rincaro": 0.18 }
+      ]
+    },
+    {
+      "id": "accessori",
+      "etichetta": "Accessori",
+      "scelta": "multipla",
+      "predefinito": [],
+      "opzioni": [
+        { "id": "maniglia-sicurezza", "etichetta": "Maniglia con chiave", "dettaglio": "Antieffrazione base", "prezzo": 65 },
+        { "id": "zanzariera",         "etichetta": "Zanzariera a rullo",  "dettaglio": "Rete in fibra",       "prezzo": 95 },
+        { "id": "cassonetto",         "etichetta": "Cassonetto coibentato", "dettaglio": "Con avvolgibile",   "prezzo": 140 }
+      ]
+    }
+  ],
+
+  "regole": [
+    {
+      "id": "triplo-camera",
+      "incompatibili": [
+        { "gruppo": "vetro",   "opzioni": ["triplo"] },
+        { "gruppo": "profilo", "opzioni": ["pvc-60"] }
+      ],
+      "perche": "Il vetro triplo e' spesso 44 mm: il fermavetro del profilo da 60 arriva a 34."
+    },
+    {
+      "id": "acustico-camera",
+      "incompatibili": [
+        { "gruppo": "vetro",   "opzioni": ["acustico"] },
+        { "gruppo": "profilo", "opzioni": ["pvc-60"] }
+      ],
+      "perche": "Il vetro acustico e' stratificato e pesa 38 kg/m2: il profilo da 60 non regge la ferramenta necessaria."
+    },
+    {
+      "id": "finiture-speciali",
+      "incompatibili": [
+        { "gruppo": "colore",  "opzioni": ["antracite", "effetto-legno"] },
+        { "gruppo": "profilo", "opzioni": ["pvc-60"] }
+      ],
+      "perche": "Le pellicole scure vanno applicate solo su profili con anima rinforzata: sul 60 si deformano al sole."
+    },
+    {
+      "id": "scorrevole-legno",
+      "incompatibili": [
+        { "gruppo": "apertura", "opzioni": ["scorrevole"] },
+        { "gruppo": "profilo",  "opzioni": ["legno-all"] }
+      ],
+      "perche": "L alzante scorrevole in legno-alluminio non e' a catalogo: serve un profilo dedicato."
+    },
+    {
+      "id": "fisso-maniglia",
+      "incompatibili": [
+        { "gruppo": "apertura",  "opzioni": ["fisso"] },
+        { "gruppo": "accessori", "opzioni": ["maniglia-sicurezza"] }
+      ],
+      "perche": "Un serramento fisso non ha anta, quindi non ha dove montare la maniglia."
+    },
+    {
+      "id": "fisso-zanzariera",
+      "incompatibili": [
+        { "gruppo": "apertura",  "opzioni": ["fisso"] },
+        { "gruppo": "accessori", "opzioni": ["zanzariera"] }
+      ],
+      "perche": "La zanzariera serve quando la finestra si apre: su un fisso e' spesa inutile."
+    },
+    {
+      "id": "scorrevole-cassonetto",
+      "incompatibili": [
+        { "gruppo": "apertura",  "opzioni": ["scorrevole"] },
+        { "gruppo": "accessori", "opzioni": ["cassonetto"] }
+      ],
+      "perche": "Sull alzante scorrevole il cassonetto va fuori misura: si usa una tenda esterna."
+    }
+  ],
+
+  "vincoliMisura": [
+    { "id": "scorrevole-min",  "quando": { "gruppo": "apertura", "opzioni": ["scorrevole"] },
+      "misura": "larghezza", "min": 1200,
+      "perche": "Sotto 1200 mm l alzante scorrevole non ha corsa utile." },
+    { "id": "battente2-min",   "quando": { "gruppo": "apertura", "opzioni": ["battente2"] },
+      "misura": "larghezza", "min": 900,
+      "perche": "Due ante sotto 900 mm danno passaggi da 40 cm: inutilizzabili." },
+    { "id": "battente1-max",   "quando": { "gruppo": "apertura", "opzioni": ["battente1"] },
+      "misura": "larghezza", "max": 1000,
+      "perche": "Oltre il metro l anta singola strappa la cerniera per il peso a sbalzo." },
+    { "id": "vasistas-max",    "quando": { "gruppo": "apertura", "opzioni": ["vasistas"] },
+      "misura": "altezza", "max": 800,
+      "perche": "Il vasistas si usa per aperture alte e basse: sopra 800 mm la ribalta sporge troppo." },
+    { "id": "legno-max",       "quando": { "gruppo": "profilo", "opzioni": ["legno-all"] },
+      "misura": "larghezza", "max": 2000,
+      "perche": "Il legno-alluminio pesa: oltre 2000 mm serve una struttura portante dedicata." },
+    { "id": "triplo-max",      "quando": { "gruppo": "vetro", "opzioni": ["triplo"] },
+      "misura": "altezza", "max": 2200,
+      "perche": "Una lastra tripla oltre 2200 mm di altezza supera il limite di flessione della ferramenta standard." }
+  ],
+
+  "servizi": [
+    { "id": "posa",         "etichetta": "Posa in opera",                  "dettaglio": "Smontaggio, montaggio, sigillatura", "prezzoPezzo": 120 },
+    { "id": "smaltimento",  "etichetta": "Smaltimento del vecchio infisso","dettaglio": "Ritiro e conferimento",              "prezzoPezzo": 45 }
+  ],
+
+  "sconti": [
+    { "da": 3,  "sconto": 0.05, "etichetta": "3 pezzi o piu" },
+    { "da": 6,  "sconto": 0.08, "etichetta": "6 pezzi o piu" },
+    { "da": 10, "sconto": 0.12, "etichetta": "10 pezzi o piu" }
+  ],
+
+  "iva": [
+    { "id": "ordinaria",      "etichetta": "IVA 22% — ordinaria",                    "aliquota": 0.22, "predefinita": true },
+    { "id": "ristrutturazione","etichetta": "IVA 10% — recupero edilizio",           "aliquota": 0.10,
+      "nota": "Aliquota ridotta per interventi di manutenzione straordinaria su immobili residenziali. La verifica dei requisiti spetta al committente." }
+  ]
+}

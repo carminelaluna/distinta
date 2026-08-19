@@ -1,0 +1,114 @@
+{
+  "nota": [
+    "Attese scritte a mano leggendo il catalogo, non copiate dall'uscita del",
+    "motore: un banco di prova generato dal codice che deve provare misura",
+    "solo la coerenza del codice con se stesso.",
+    "",
+    "I prezzi sono calcolati con la calcolatrice, passaggio per passaggio.",
+    "Sono la parte che conta: un configuratore che sbaglia il totale non e'",
+    "un configuratore con un difetto, e' un preventivo sbagliato mandato a",
+    "un cliente."
+  ],
+
+  "regole": [
+    { "caso": "vetro triplo sul profilo sottile",
+      "config": { "profilo": "pvc-60", "vetro": "triplo" }, "valida": false, "regola": "triplo-camera" },
+    { "caso": "vetro triplo sul profilo giusto",
+      "config": { "profilo": "pvc-76", "vetro": "triplo" }, "valida": true },
+    { "caso": "vetro acustico sul profilo sottile",
+      "config": { "profilo": "pvc-60", "vetro": "acustico" }, "valida": false, "regola": "acustico-camera" },
+    { "caso": "antracite sul profilo sottile",
+      "config": { "profilo": "pvc-60", "colore": "antracite" }, "valida": false, "regola": "finiture-speciali" },
+    { "caso": "effetto legno sul profilo sottile",
+      "config": { "profilo": "pvc-60", "colore": "effetto-legno" }, "valida": false, "regola": "finiture-speciali" },
+    { "caso": "avorio sul profilo sottile e' permesso",
+      "config": { "profilo": "pvc-60", "colore": "avorio" }, "valida": true },
+    { "caso": "scorrevole in legno-alluminio",
+      "config": { "profilo": "legno-all", "apertura": "scorrevole", "larghezza": 1600, "altezza": 1400 },
+      "valida": false, "regola": "scorrevole-legno" },
+    { "caso": "maniglia su un fisso",
+      "config": { "apertura": "fisso", "accessori": ["maniglia-sicurezza"] }, "valida": false, "regola": "fisso-maniglia" },
+    { "caso": "zanzariera su un fisso",
+      "config": { "apertura": "fisso", "accessori": ["zanzariera"] }, "valida": false, "regola": "fisso-zanzariera" },
+    { "caso": "cassonetto su un fisso e' permesso",
+      "config": { "apertura": "fisso", "accessori": ["cassonetto"] }, "valida": true },
+    { "caso": "cassonetto su scorrevole",
+      "config": { "apertura": "scorrevole", "larghezza": 1600, "accessori": ["cassonetto"] },
+      "valida": false, "regola": "scorrevole-cassonetto" },
+
+    { "caso": "scorrevole troppo stretto",
+      "config": { "apertura": "scorrevole", "larghezza": 1100 }, "valida": false, "regola": "scorrevole-min" },
+    { "caso": "scorrevole al limite esatto",
+      "config": { "apertura": "scorrevole", "larghezza": 1200 }, "valida": true },
+    { "caso": "due ante troppo strette",
+      "config": { "apertura": "battente2", "larghezza": 890 }, "valida": false, "regola": "battente2-min" },
+    { "caso": "un anta troppo larga",
+      "config": { "apertura": "battente1", "larghezza": 1010 }, "valida": false, "regola": "battente1-max" },
+    { "caso": "un anta al limite esatto",
+      "config": { "apertura": "battente1", "larghezza": 1000 }, "valida": true },
+    { "caso": "vasistas troppo alto",
+      "config": { "apertura": "vasistas", "altezza": 900 }, "valida": false, "regola": "vasistas-max" },
+    { "caso": "legno-alluminio troppo largo",
+      "config": { "profilo": "legno-all", "apertura": "fisso", "larghezza": 2100 },
+      "valida": false, "regola": "legno-max" },
+    { "caso": "triplo troppo alto",
+      "config": { "profilo": "pvc-76", "vetro": "triplo", "apertura": "fisso", "altezza": 2300 },
+      "valida": false, "regola": "triplo-max" }
+  ],
+
+  "prezzi": [
+    {
+      "caso": "base: 1200x1400, PVC 76, selettivo, due ante",
+      "conto": "area 1,68 · profilo 240x1,68=403,20 · vetro 35x1,68=58,80 · due ante 150 · IVA 22%",
+      "config": { "larghezza": 1200, "altezza": 1400, "profilo": "pvc-76", "vetro": "selettivo",
+                  "apertura": "battente2", "colore": "bianco", "accessori": [], "quantita": 1,
+                  "servizi": [], "iva": "ordinaria" },
+      "atteso": { "area": 1.68, "perPezzo": 612.00, "imponibile": 612.00, "iva": 134.64, "totale": 746.64 }
+    },
+    {
+      "caso": "area minima: 600x700 fattura comunque 1 m2",
+      "conto": "area reale 0,42 ma fatturata 1,00 · profilo 180 · resto zero · IVA 22%",
+      "config": { "larghezza": 600, "altezza": 700, "profilo": "pvc-60", "vetro": "doppio",
+                  "apertura": "fisso", "colore": "bianco", "accessori": [], "quantita": 1,
+                  "servizi": [], "iva": "ordinaria" },
+      "atteso": { "area": 1.00, "areaMinimaApplicata": true, "perPezzo": 180.00,
+                  "imponibile": 180.00, "iva": 39.60, "totale": 219.60 }
+    },
+    {
+      "caso": "completo: 6 pezzi, antracite, triplo, accessori, posa, IVA 10%",
+      "conto": "area 1,20 · alluminio 384 · antracite +12% del profilo 46,08 · triplo 90 · anta 85 · zanzariera 95 · maniglia 65 = 765,08 al pezzo · x6 = 4590,48 · sconto 8% = 367,24 · posa 120x6 = 720 · imponibile 4943,24 · IVA 10% 494,32",
+      "config": { "larghezza": 1000, "altezza": 1200, "profilo": "alluminio", "vetro": "triplo",
+                  "apertura": "battente1", "colore": "antracite",
+                  "accessori": ["zanzariera", "maniglia-sicurezza"], "quantita": 6,
+                  "servizi": ["posa"], "iva": "ristrutturazione" },
+      "atteso": { "area": 1.20, "perPezzo": 765.08, "totalePezzi": 4590.48, "sconto": 367.24,
+                  "costoServizi": 720.00, "imponibile": 4943.24, "iva": 494.32, "totale": 5437.56 }
+    },
+    {
+      "caso": "scorrevole grande in alluminio",
+      "conto": "area 3,52 · alluminio 1126,40 · selettivo 123,20 · scorrevole 260 = 1509,60 · IVA 22% 332,11",
+      "config": { "larghezza": 1600, "altezza": 2200, "profilo": "alluminio", "vetro": "selettivo",
+                  "apertura": "scorrevole", "colore": "bianco", "accessori": [], "quantita": 1,
+                  "servizi": [], "iva": "ordinaria" },
+      "atteso": { "area": 3.52, "perPezzo": 1509.60, "imponibile": 1509.60, "iva": 332.11, "totale": 1841.71 }
+    },
+    {
+      "caso": "soglia sconto: 3 pezzi entrano nella prima fascia",
+      "conto": "perPezzo 612,00 · x3 = 1836,00 · sconto 5% = 91,80 · imponibile 1744,20 · IVA 22% 383,72",
+      "config": { "larghezza": 1200, "altezza": 1400, "profilo": "pvc-76", "vetro": "selettivo",
+                  "apertura": "battente2", "colore": "bianco", "accessori": [], "quantita": 3,
+                  "servizi": [], "iva": "ordinaria" },
+      "atteso": { "totalePezzi": 1836.00, "sconto": 91.80, "imponibile": 1744.20,
+                  "iva": 383.72, "totale": 2127.92 }
+    },
+    {
+      "caso": "sotto soglia: 2 pezzi non hanno sconto",
+      "conto": "perPezzo 612,00 · x2 = 1224,00 · nessuna fascia · IVA 22% 269,28",
+      "config": { "larghezza": 1200, "altezza": 1400, "profilo": "pvc-76", "vetro": "selettivo",
+                  "apertura": "battente2", "colore": "bianco", "accessori": [], "quantita": 2,
+                  "servizi": [], "iva": "ordinaria" },
+      "atteso": { "totalePezzi": 1224.00, "sconto": 0, "imponibile": 1224.00,
+                  "iva": 269.28, "totale": 1493.28 }
+    }
+  ]
+}

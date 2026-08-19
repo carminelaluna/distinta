@@ -1,0 +1,30 @@
+# ============================================================
+#  Verifica a ogni push. Nessuna dipendenza da installare.
+#
+#  Il controllo che conta e' il terzo: visita tutto lo spazio
+#  raggiungibile partendo dai predefiniti, muovendosi solo sulle
+#  opzioni che il motore dichiara disponibili, e verifica che
+#  nessuno stato raggiunto sia invalido.
+#
+#  Serve perche' un configuratore che lascia comporre
+#  l'impossibile manda in produzione un ordine che non si puo'
+#  fabbricare, e il difetto si scopre in officina.
+# ============================================================
+name: verifica
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  verifica:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Regole, prezzi, enumerazione e raggiungibilita
+        run: node verifica.mjs

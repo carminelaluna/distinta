@@ -1,0 +1,15 @@
+{
+  "name": "distinta",
+  "version": "0.1.0",
+  "description": "Configuratore di prodotto su misura: regole di compatibilita, vincoli dimensionali e distinta base con prezzo, tutto nel browser.",
+  "homepage": "https://distinta.17labs.it/",
+  "repository": { "type": "git", "url": "https://github.com/carminelaluna/distinta.git" },
+  "author": "Carmine La Luna (17Labs)",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "test": "node verifica.mjs",
+    "dettagli": "node verifica.mjs --dettagli"
+  },
+  "engines": { "node": ">=18" }
+}
